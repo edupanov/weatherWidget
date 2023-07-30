@@ -1,15 +1,19 @@
 <template>
-  <div>
-    <input type="text" v-model="newCity" placeholder="Enter city name" />
-    <button @click="addCity">Add City</button>
-    <draggable :list="cities" :options="{ handle: '.drag-handle' }">
+  <div class="city-list">
+    <input type="text" v-model="newCity" class="city-list__input" placeholder="Enter city name" />
+    <button @click="addCity" class="city-list__add-button">Add location</button>
+    <draggable
+        :list="cities"
+        :options="{ handle: '.city-list__drag-handle' }"
+        class="city-list__draggable"
+    >
       <template #item="{ element }">
-        <div :key="element">
-          <div class="drag-handle">☰</div>
-          <div>
+        <div :key="element" class="city-list__item">
+          <div class="city-list__drag-handle">☰</div>
+          <div class="city-list__item-content">
             {{ element }}
-            <button @click="removeCity(cities.indexOf(element))">Remove</button>
           </div>
+          <button @click="removeCity(cities.indexOf(element))" class="city-list__remove-button">x</button>
         </div>
       </template>
     </draggable>
@@ -20,6 +24,8 @@
 import draggable from 'vuedraggable'
 
 export default {
+  name: "EditWeatherWidget",
+
   components: {
     draggable,
   },
@@ -51,5 +57,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import "EditWeatherWidget.scss";
 </style>

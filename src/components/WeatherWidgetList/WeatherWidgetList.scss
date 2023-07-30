@@ -1,8 +1,18 @@
 .weather-widget-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 15px;
   .weather-widget-list__toggle-button {
+    padding: 7px;
+    background: #e9e9e9;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
   }
   .weather-widget-list__edit {
+    display: flex;
+    justify-content: center;
   }
   .weather-widget-list__cards {
     display: flex;
