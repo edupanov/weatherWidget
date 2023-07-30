@@ -1,0 +1,20 @@
+.weather-widget-list {
+  margin: 15px;
+  .weather-widget-list__toggle-button {
+  }
+  .weather-widget-list__edit {
+  }
+  .weather-widget-list__cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    .weather-widget-list__card {
+    }
+  }
+
+}
+
+
+
+

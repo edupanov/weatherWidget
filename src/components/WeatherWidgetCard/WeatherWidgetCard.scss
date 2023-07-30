@@ -1,0 +1,67 @@
+.card-wrapper {
+  width: 375px;
+  display: flex;
+  padding: 10px;
+  margin: 15px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 1px 12px 1px rgba(0, 0, 0, 0.75);
+
+  .card-loading {
+    color: green;
+  }
+
+  .card-error {
+    color: red;
+  }
+
+  .card-content {
+    width: 100%;
+
+    .card-content__location {
+      text-align: center;
+      font-size: 20px;
+      color: #999999;
+    }
+
+    .card-content__description-wrapper {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .card-content__temperature {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .card-content__humidity {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .card-content__visibility {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .card-content__wind-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      .card-content__windSpeed {
+      }
+
+      .card-content__windDegree {
+      }
+
+      .card-content__windDegree-arrow {
+        font-size: 28px;
+      }
+    }
+  }
+}

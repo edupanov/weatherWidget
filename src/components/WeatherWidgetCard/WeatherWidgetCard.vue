@@ -1,24 +1,28 @@
 <template>
-  <div>
-    <div v-if="loading">Loading...</div>
-    <div v-else-if="error">Error: {{ error }}</div>
-    <div v-else>
-      <div>
-        <h2>{{ `${weatherData.name}, ${weatherData.sys.country}`}}</h2>
-        <p>{{ weatherData.weather[0].description }}</p>
-        <img :src="imageUrl" alt="description image">
-        <p>Temperature: {{ weatherData.main.temp }} °C</p>
-        <p>Humidity: {{ weatherData.main.humidity }}%</p>
-        <p>visibility: {{ weatherData.visibility/1000 }} km</p>
-        <p>Wind: {{ weatherData.wind.speed }} m/s</p>
-        <p>Wind: {{ weatherData.wind.deg }} градусы для поворота стрелки</p>
+  <div class="card-wrapper">
+    <div class="card-loading" v-if="isLoading">Loading...</div>
+    <div class="card-error" v-else-if="hasError">Error: {{ errorMessage }}</div>
+    <div v-else class="card-content">
+      <h2 class="card-content__location">{{ location }}</h2>
+      <div class="card-content__description-wrapper">
+        <p class="card-content__description">{{ description }}</p>
+        <img class="card-content__img" :src="imageUrl" alt="description image">
+      </div>
+      <p class="card-content__temperature">Temperature: {{ temperature }} °C</p>
+      <p class="card-content__humidity">Humidity: {{ humidity }}%</p>
+      <p class="card-content__visibility">Visibility: {{ visibility }} km</p>
+      <div class="card-content__wind-wrapper">
+        <p class="card-content__windSpeed">Wind: {{ windSpeed }} m/s</p>
+        <p class="card-content__windDegree">Wind Direction:</p>
+        <p class="card-content__windDegree-arrow" :style="{ transform: windDegree }">&#129045;</p>
       </div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import axios from 'axios';
+import {WeatherWidgetInterface} from "../../interfaces/WeatherWidgetInterface";
 
 export default {
   name: "WeatherWidgetCard",
@@ -32,20 +36,44 @@ export default {
     return {
       loading: false,
       error: '',
-      weatherData: null,
-      imageUrl: null
+      weatherData: {} as WeatherWidgetInterface,
+      imageUrl: '',
     };
   },
-  watch: {
-    city: {
-      immediate: true,
-      handler(newCity) {
-        this.getWeatherData(newCity);
-      },
+  computed: {
+    isLoading() {
+      return this.loading;
+    },
+    hasError() {
+      return !!this.error;
+    },
+    errorMessage() {
+      return this.error;
+    },
+    location() {
+      return this.weatherData ? `${this.weatherData.name}, ${this.weatherData.sys.country}` : '';
+    },
+    description() {
+      return this.weatherData ? this.weatherData.weather[0].description : '';
+    },
+    temperature() {
+      return this.weatherData ? this.weatherData.main.temp : '';
+    },
+    humidity() {
+      return this.weatherData ? this.weatherData.main.humidity : '';
+    },
+    visibility() {
+      return this.weatherData ? this.weatherData.visibility / 1000 : '';
+    },
+    windSpeed() {
+      return this.weatherData ? this.weatherData.wind.speed : '';
+    },
+    windDegree() {
+      return this.weatherData ? `rotate(${this.weatherData.wind.deg}deg)`  : '';
     },
   },
   methods: {
-    async getWeatherData(city) {
+    async getWeatherData(city: string): Promise<WeatherWidgetInterface> {
       this.loading = true;
       this.error = '';
       try {
@@ -53,9 +81,8 @@ export default {
         const response = await axios.get(
             `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
         );
-        console.log(response.data)
         this.weatherData = response.data;
-        this.imageUrl = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+        this.imageUrl = `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
         this.loading = false;
       } catch (error) {
         this.error = 'Failed to fetch weather data';
@@ -63,10 +90,18 @@ export default {
       }
     },
   },
-
-}
+  watch: {
+    city: {
+      immediate: true,
+      handler(newCity: string) {
+        // @ts-ignore
+        this.getWeatherData(newCity);
+      },
+    },
+  },
+};
 </script>
 
 <style scoped>
-
+@import "WeatherWidgetCard.scss";
 </style>

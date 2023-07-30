@@ -4,7 +4,7 @@
     <button @click="addCity">Add City</button>
     <draggable :list="cities" :options="{ handle: '.drag-handle' }">
       <template #item="{ element }">
-        <div>
+        <div :key="element">
           <div class="drag-handle">☰</div>
           <div>
             {{ element }}
@@ -16,8 +16,7 @@
   </div>
 </template>
 
-<script>
-
+<script lang="ts">
 import draggable from 'vuedraggable'
 
 export default {
