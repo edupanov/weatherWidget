@@ -48,7 +48,7 @@ export default {
         this.$emit('update:cities', this.cities)
       }
     },
-    removeCity(index) {
+    removeCity(index: number) {
       this.cities.splice(index, 1)
       this.$emit('update:cities', this.cities)
     },

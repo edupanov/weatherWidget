@@ -69,11 +69,11 @@ export default {
       return this.weatherData ? this.weatherData.wind.speed : '';
     },
     windDegree() {
-      return this.weatherData ? `rotate(${this.weatherData.wind.deg}deg)`  : '';
+      return this.weatherData ? `rotate(${this.weatherData.wind.deg}deg)` : '';
     },
   },
   methods: {
-    async getWeatherData(city: string): Promise<WeatherWidgetInterface> {
+    async getWeatherData(city: string) {
       this.loading = true;
       this.error = '';
       try {

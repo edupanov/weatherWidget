@@ -27,7 +27,7 @@ export default {
   components: { EditWeatherWidget, WeatherWidgetCard },
   data() {
     return {
-      cities: [],
+      cities: [] as Array<string>,
       showEditWidget: false,
     };
   },
@@ -39,7 +39,7 @@ export default {
     toggleWidgets() {
       this.showEditWidget = !this.showEditWidget;
     },
-    updateCities(newCities: string[]) {
+    updateCities(newCities: any) {
       this.cities = newCities;
       this.saveCitiesToLocalStorage();
     },
