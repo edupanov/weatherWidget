@@ -3,7 +3,7 @@ import MainView from "../views/MainView/MainView.vue";
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/',
+        path: '/weatherWidget',
         name: 'home',
         component: MainView,
     },
