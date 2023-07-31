@@ -1,10 +1,21 @@
 <template>
   <div class="weather-widget-list">
     <button class="weather-widget-list__toggle-button" @click="toggleWidgets">
-      {{ showEditWidget ? "Show Weather Widget" : "Configure the Widget" }}
+      <div
+          class="toggle-button__xmark"
+          v-if="showEditWidget"
+      >
+        Settings
+        <fa
+            class="toggle-button__xmark-icon"
+            v-if="showEditWidget"
+            icon="fa-solid fa-xmark"
+        />
+      </div>
+      <fa v-else icon="fa-solid fa-gear"/>
     </button>
     <div v-if="showEditWidget" class="weather-widget-list__edit">
-      <EditWeatherWidget :cities="cities" @update:cities="updateCities" />
+      <EditWeatherWidget :cities="cities" @update:cities="updateCities"/>
     </div>
     <div v-else class="weather-widget-list__cards">
       <WeatherWidgetCard
@@ -20,11 +31,11 @@
 <script lang="ts">
 import WeatherWidgetCard from "../WeatherWidgetCard/WeatherWidgetCard.vue";
 import EditWeatherWidget from "../EditWeatherWidget/EditWeatherWidget.vue";
-import { getCurrentCityName } from "../../helpers/weatherListHelpers";
+import {getCurrentCityName} from "../../helpers/weatherListHelpers";
 
 export default {
   name: "WeatherWidgetList",
-  components: { EditWeatherWidget, WeatherWidgetCard },
+  components: {EditWeatherWidget, WeatherWidgetCard},
   data() {
     return {
       cities: [] as Array<string>,
@@ -65,6 +76,7 @@ export default {
     },
   },
 };
-</script><style scoped>
+</script>
+<style scoped>
 @import "WeatherWidgetList.scss";
 </style>
